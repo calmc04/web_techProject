@@ -1,0 +1,21 @@
+body {
+	background-color: darkSeagreen;	
+}
+
+#mainBody {
+}
+
+
+#left { 
+	width: 30%;
+	border: 3px solid;
+	float: left;
+	height: 100%;
+}
+
+#middle {
+	width: 100%;
+	border: 3px solid;
+	float: center;
+	height: 100%;
+}
