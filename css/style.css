@@ -33,3 +33,17 @@ body {
 #subbar {
 	padding-top: 800px;
 }
+
+#header {
+	display: block;
+}
+
+.aboutImages {
+	width: 200px;
+	height: 200px
+}
+
+.historyImages {
+	width: 200px;
+	height: 200px
+}
