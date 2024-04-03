@@ -20,7 +20,7 @@ body {
 	height: 100%;
 }
 
-#autoAddButton1, #multiplierButton1, #incrementButton1 {
+#autoAddButton1, #multiplierButton1, #incrementButton1, #autoAddButton2, #multiplierButton2, #incrementButton2 {
 	width: 100%;
 	height: 10%
 }
