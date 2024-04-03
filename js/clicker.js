@@ -13,10 +13,15 @@ var incrementCost = 50
 setInterval(scoreRefresh, 500);
 
 function addCount() {
+	oldPlayerScore = playerScore;
+	oldWidth = document.getElementById("progress").getAttribute("width");
 	playerScore += incrementAmount * multiplierClicks;
 	//playerScore += 1
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
-
+	if (oldPlayerScore <= (playerScore * 0.1)) {
+		newWidth = oldWidth * 0.1
+		document.getElementById("progress").setAttribute("width", newWidth);
+	}
 	if (playerScore >= (autoAddCost - 100)) {
 		autoAddButton1.style.display = "block";
 		autoAddButton1.textContent = "Money Printer Upgrade - £" + autoAddCost;
@@ -69,7 +74,7 @@ function autoIncrease() {
 		playerScore = playerScore - 10;
 	}
 	else {
-		playerScore = playerScore - (10 * (multiplierIncreaseTimes * 5));
+		playerScore = playerScore + (10 * (multiplierIncreaseTimes * 5));
 	}
 
 	autoIncreaseTimes += 1;
@@ -101,7 +106,7 @@ function autoIncreaseTimer() {
 		playerScore = playerScore - 10;
 	}
 	else {
-		playerscore -= (10 * (multiplierIncreaseTimes * 5));	
+		playerScore += (10 * (multiplierIncreaseTimes * 5));	
 	}
 	setInterval(autoIncrease, 1000);
 }
