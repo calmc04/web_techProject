@@ -31,7 +31,10 @@ body {
 }
 
 #subbar {
-	padding-top: 800px;
+	position: fixed;
+	left: 15;
+	bottom: 0;
+	padding-top: 250px;
 }
 
 #header {
