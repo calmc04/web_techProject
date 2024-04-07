@@ -1,4 +1,12 @@
 var playerScore = 0;
+if (sessionStorage.getItem('score') == null) {
+	var playerScore = 0;
+}
+else {
+	var playerScore = parseInt(sessionStorage.getItem('score'));
+}
+
+
 var incrementAmount = 1;
 var additionalBonus = 0;
 var multiplierIncreaseTimes = 0;
@@ -16,6 +24,8 @@ function addCount() {
 	oldPlayerScore = playerScore;
 	oldWidth = document.getElementById("progress").getAttribute("width");
 	playerScore += incrementAmount * multiplierClicks;
+	
+	sessionStorage.setItem('score', playerScore);
 	//playerScore += 1
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
 	if (oldPlayerScore <= (playerScore * 0.1)) {
