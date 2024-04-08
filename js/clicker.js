@@ -54,17 +54,36 @@ else {
 	var autoAddCost = parseInt(sessionStorage.getItem('autoAddCost'));
 }
 
+var restartCount = 0;
+if (sessionStorage.getItem('restartCount') == null) {
+	var restartCount = 0;
+}
+else {
+	var restartCount = parseInt(sessionStorage.getItem('restartCount'));
+}
+
 setInterval(screenRefresh, 200);
 setInterval(autoAdd, 100);
 
 function addCount() {
-	if (multiplierPurchases >= 1){
+	if (multiplierPurchases >= 1 && restartCount == 0){
 		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1));	
 	}
-	else {
+	else if (multiplierPurchases = 0) {
 		playerScore += (1 + incrementPurchases);
 	}
+	if (restartCount >= 1 && multiplierPurchases >= 1){
+		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1) * (restartCount * 1.5));	
+	}
+	else if (multiplierPurchases == 0 && restartCount == 1){
+		playerScore += ((1 + incrementPurchases) * (restartCount * 1.5));
+	}
 	
+	var width = (playerScore / 500000) * 1895
+	if (playerScore >= 500000) {
+		restartOption.style.display = "block";
+	}
+	document.getElementById("progress").style.width = width + "px";
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
 	
 	
@@ -144,7 +163,27 @@ function screenRefresh() {
 	sessionStorage.setItem('score', playerScore);
 }
 
-
+function restart() {
+	playerScore = 0;
+	autoAddCost = 250;
+	autoAddPurchases = 0;
+	multiplierCost = 25;
+	multiplierPurchases = 0;
+	incrementCost = 100;
+	incrementPurchases = 0;
+	restartCount += 1;
+	autoAddButton1.style.display = "none";
+	
+	sessionStorage.setItem('multiplierPurchases', multiplierPurchases);
+	sessionStorage.setItem('multiplierCost', multiplierCost);
+	sessionStorage.setItem('autoAddPurchases', autoAddPurchases);
+	sessionStorage.setItem('autoAddCost', autoAddCost);
+	sessionStorage.setItem('score', playerScore);
+	sessionStorage.setItem('incrementCost', incrementCost);
+	sessionStorage.setItem('incrementPurchases', incrementPurchases);
+	sessionStorage.setItem('restartCount', restartCount);
+	document.getElementById("progress").style.width = 0 + "px";
+}
 // Displays nav bar
 function subMenu() {
 	subBarDiv.style.display = "block"
