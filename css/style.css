@@ -24,6 +24,10 @@ body {
 	height: 10%
 }
 
+#gameTitle {
+	margin-top: 25px;
+	margin-left: 1150px
+}
 #output {
 	margin-top: 100px;
 	margin-left: 1100px;
