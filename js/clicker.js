@@ -5,36 +5,30 @@ if (sessionStorage.getItem('score') == null) {
 else {
 	var playerScore = parseInt(sessionStorage.getItem('score'));
 }
+var incrementPurchases = 0;
+var multiplierPurchases = 0;
+var autoAddPurchases = 0;
+var multiplierCost = 25;
+var incrementCost = 100;
+var autoAddCost = 250;
+setInterval(screenRefresh, 200);
 
-
-var incrementAmount = 1;
-var additionalBonus = 0;
-var multiplierIncreaseTimes = 0;
-var incrementIncreaseTimes = 0;
-var autoIncreaseTimes = 0;
-var multiplierClicks = 1;
-var multiplierAutoIncrease = 1;
-var autoAddCost = 10
-var multiplierCost = 25
-var incrementCost = 50
-
-setInterval(scoreRefresh, 500);
-
+setInterval(autoAdd, 100);
 function addCount() {
-	oldPlayerScore = playerScore;
-	oldWidth = document.getElementById("progress").getAttribute("width");
-	playerScore += incrementAmount * multiplierClicks;
-	
-	sessionStorage.setItem('score', playerScore);
-	//playerScore += 1
-	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
-	if (oldPlayerScore <= (playerScore * 0.1)) {
-		newWidth = oldWidth * 0.1
-		document.getElementById("progress").setAttribute("width", newWidth);
+	if (multiplierPurchases >= 1){
+		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1));	
 	}
+	else {
+		playerScore += (1 + incrementPurchases);
+	}
+	sessionStorage.setItem('score', playerScore);
+	
+	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	
+	
 	if (playerScore >= (autoAddCost - 100)) {
 		autoAddButton1.style.display = "block";
-		autoAddButton1.textContent = "Money Printer Upgrade - £" + autoAddCost;
+		autoAddButton1.textContent = "Basic Money Printer - £" + autoAddCost;
 	}
 	if (playerScore >= (multiplierCost - 100)) {
 		multiplierButton1.style.display = "block";
@@ -62,71 +56,47 @@ function addCount() {
 	else {
 		autoAddButton1.disabled = false;
 	}
+}
+
+
+function autoAdd() {
+	if (autoAddPurchases >= 1) {
+		playerScore += (autoAddPurchases * 5)
+		sessionStorage.setItem('score', playerScore);
+		document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	}
 
 }
 
-function multiplierIncrease() {
-	// Takes away default price 
-	if (multiplierIncreaseTimes == 0) {
-		playerScore = playerScore - 25;
-	}
-	else {
-		playerScore = playerScore - (5 * (multiplierIncreaseTimes * 4));	
-	}
-	multiplierIncreaseTimes += 1;
-	multiplierClicks += 0.1 + (multiplierIncreaseTimes / 4);
-	multiplierCost = (28 * (multiplierIncreaseTimes * 7));
-	multiplierButton1.style.display = "none";
-}
-
-function autoIncrease() {
-	if (autoIncreaseTimes == 0) {
-		playerScore = playerScore - 10;
-	}
-	else {
-		playerScore = playerScore + (10 * (multiplierIncreaseTimes * 5));
-	}
-
-	autoIncreaseTimes += 1;
-	playerScore += autoIncreaseTimes * multiplierAutoIncrease;
+function purchaseAutoAdd() {
+	playerScore -= autoAddCost;
+	autoAddPurchases += 1;
+	autoAddCost += 200
 	autoAddButton1.style.display = "none";
-	autoAddCost = (10 * (multiplierIncreaseTimes * 5));
-	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+
 }
 
 function incrementIncrease() {
-	if (incrementIncreaseTimes == 0) {
-		playerScore = playerScore - 50;
-	}
-	else {
-		playerScore = playerScore - (35 * (incrementIncreaseTimes * 8));
-	}
-
-	incrementIncreaseTimes += 1;
-	incrementAmount += incrementIncreaseTimes * incrementIncreaseTimes;
+	playerScore -= incrementCost;
 	incrementButton1.style.display = "none";
-	incrementCost = (35 * (incrementIncreaseTimes * 8));
-	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	incrementCost += 100
+	incrementPurchases += 1;
 }
 
-// buggy mess
-function autoIncreaseTimer() {
-	autoAddCost = (1 * (autoIncreaseTimes * 10));
-	if (autoIncreaseTimes == 0) {
-		playerScore = playerScore - 10;
-	}
-	else {
-		playerScore += (10 * (multiplierIncreaseTimes * 5));	
-	}
-	setInterval(autoIncrease, 1000);
+function multiplierIncrease() {
+	playerScore -= multiplierCost;
+	multiplierButton1.style.display = "none";
+	multiplierCost += 150
+	multiplierPurchases += 1;
 }
 
+// Refreshes screen
 function screenRefresh() {
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
 }
 
+
+// Displays nav bar
 function subMenu() {
 	subBarDiv.style.display = "block"
 }
-
-// going to need to come up with a way for you to see future upgrades and know how much current ones cost
