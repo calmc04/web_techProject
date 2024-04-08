@@ -5,15 +5,58 @@ if (sessionStorage.getItem('score') == null) {
 else {
 	var playerScore = parseInt(sessionStorage.getItem('score'));
 }
-var incrementPurchases = 0;
-var multiplierPurchases = 0;
-var autoAddPurchases = 0;
-var multiplierCost = 25;
-var incrementCost = 100;
-var autoAddCost = 250;
-setInterval(screenRefresh, 200);
 
+var incrementPurchases = 0;
+if (sessionStorage.getItem('incrementPurchases') == null) {
+	var incrementPurchases = 0;
+}
+else {
+	var incrementPurchases = parseInt(sessionStorage.getItem('incrementPurchases'));
+}
+
+var multiplierPurchases = 0;
+if (sessionStorage.getItem('multiplierPurchases') == null) {
+	var multiplierPurchases = 0;
+}
+else {
+	var multiplierPurchases = parseInt(sessionStorage.getItem('multiplierPurchases'));
+}
+
+var autoAddPurchases = 0;
+if (sessionStorage.getItem('autoAddPurchases') == null) {
+	var autoAddPurchases = 0;
+}
+else {
+	var autoAddPurchases = parseInt(sessionStorage.getItem('autoAddPurchases'));
+}
+
+var multiplierCost = 25;
+if (sessionStorage.getItem('multiplierCost') == null) {
+	var multiplierCost = 25;
+}
+else {
+	var multiplierCost = parseInt(sessionStorage.getItem('multiplierCost'));
+}
+
+var incrementCost = 100;
+if (sessionStorage.getItem('incrementCost') == null) {
+	var incrementCost = 100;
+}
+else {
+	var incrementCost = parseInt(sessionStorage.getItem('incrementCost'));
+}
+
+var autoAddCost = 250;
+if (sessionStorage.getItem('autoAddCost') == null) {
+	var autoAddCost = 250;
+}
+else {
+	var autoAddCost = parseInt(sessionStorage.getItem('autoAddCost'));
+}
+
+setInterval(screenRefresh, 200);
 setInterval(autoAdd, 100);
+
 function addCount() {
 	if (multiplierPurchases >= 1){
 		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1));	
@@ -21,7 +64,6 @@ function addCount() {
 	else {
 		playerScore += (1 + incrementPurchases);
 	}
-	sessionStorage.setItem('score', playerScore);
 	
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
 	
@@ -65,13 +107,14 @@ function autoAdd() {
 		sessionStorage.setItem('score', playerScore);
 		document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
 	}
-
 }
 
 function purchaseAutoAdd() {
 	playerScore -= autoAddCost;
 	autoAddPurchases += 1;
 	autoAddCost += 200
+	sessionStorage.setItem('autoAddPurchases', autoAddPurchases);
+	sessionStorage.setItem('autoAddCost', autoAddCost);
 	autoAddButton1.style.display = "none";
 
 }
@@ -81,6 +124,9 @@ function incrementIncrease() {
 	incrementButton1.style.display = "none";
 	incrementCost += 100
 	incrementPurchases += 1;
+	sessionStorage.setItem('incrementCost', incrementCost);
+	sessionStorage.setItem('incrementPurchases', incrementPurchases);
+	
 }
 
 function multiplierIncrease() {
@@ -88,11 +134,14 @@ function multiplierIncrease() {
 	multiplierButton1.style.display = "none";
 	multiplierCost += 150
 	multiplierPurchases += 1;
+	sessionStorage.setItem('multiplierPurchases', multiplierPurchases);
+	sessionStorage.setItem('multiplierCost', multiplierCost);
 }
 
 // Refreshes screen
 function screenRefresh() {
 	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	sessionStorage.setItem('score', playerScore);
 }
 
 
