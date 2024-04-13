@@ -120,6 +120,9 @@ function addCount() {
 	}
 }
 
+function crossClick() {
+	subBarDiv.style.display = "none"
+}
 
 function autoAdd() {
 	if (autoAddPurchases >= 1) {
