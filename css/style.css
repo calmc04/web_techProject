@@ -68,7 +68,7 @@ body {
 
 #aboutHeader {
 	display: flex;
-	padding-left: 250px
+	justify-content: center;
 }
 
 #aboutBody {
@@ -79,9 +79,10 @@ body {
 	display:inline
 }
 .guideImages {
-    width: 200px;
-    float: right;
+	padding-top: 50px;
+    width: 500px;
     clear: both;
+	height: 300px;
 	padding-bottom: 25px;
 }
 
@@ -94,6 +95,7 @@ body {
 }
 
 .historyImages {
-	width: 200px;
-	height: 200px
+	padding-left: 500px;
+	width: 750px;
+	height: 400px
 }

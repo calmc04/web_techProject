@@ -54,7 +54,7 @@ else {
 	var autoAddCost = parseInt(sessionStorage.getItem('autoAddCost'));
 }
 
-var restartCount = 0;
+var restartCount = 1;
 if (sessionStorage.getItem('restartCount') == null) {
 	var restartCount = 0;
 }
@@ -69,13 +69,13 @@ function addCount() {
 	if (multiplierPurchases >= 1 && restartCount == 0){
 		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1));	
 	}
-	else if (multiplierPurchases = 0) {
+	else if (multiplierPurchases == 0) {
 		playerScore += (1 + incrementPurchases);
 	}
 	if (restartCount >= 1 && multiplierPurchases >= 1){
 		playerScore += ((1 + incrementPurchases) * (multiplierPurchases * 1.1) * (restartCount * 1.5));	
 	}
-	else if (multiplierPurchases == 0 && restartCount == 1){
+	else if (multiplierPurchases == 0 && restartCount >= 1){
 		playerScore += ((1 + incrementPurchases) * (restartCount * 1.5));
 	}
 	
@@ -83,8 +83,9 @@ function addCount() {
 	if (playerScore >= 500000) {
 		restartOption.style.display = "block";
 	}
+	
 	document.getElementById("progress").style.width = width + "px";
-	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	document.getElementById('output').innerHTML = "Total Money: £" + (playerScore = Number(playerScore.toFixed(2)));
 	
 	
 	if (playerScore >= (autoAddCost - 100)) {
@@ -124,7 +125,7 @@ function autoAdd() {
 	if (autoAddPurchases >= 1) {
 		playerScore += (autoAddPurchases * 5)
 		sessionStorage.setItem('score', playerScore);
-		document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+		document.getElementById('output').innerHTML = "Total Money: £" + (playerScore = Number(playerScore.toFixed(2)));;
 	}
 }
 
@@ -159,7 +160,7 @@ function multiplierIncrease() {
 
 // Refreshes screen
 function screenRefresh() {
-	document.getElementById('output').innerHTML = "Total Money: £" + playerScore;
+	document.getElementById('output').innerHTML = "Total Money: £" + (playerScore = Number(playerScore.toFixed(2)));
 	sessionStorage.setItem('score', playerScore);
 }
 
@@ -182,6 +183,7 @@ function restart() {
 	sessionStorage.setItem('incrementCost', incrementCost);
 	sessionStorage.setItem('incrementPurchases', incrementPurchases);
 	sessionStorage.setItem('restartCount', restartCount);
+	restartOption.style.display = "none";
 	document.getElementById("progress").style.width = 0 + "px";
 }
 // Displays nav bar
