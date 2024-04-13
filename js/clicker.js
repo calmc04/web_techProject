@@ -84,6 +84,10 @@ function addCount() {
 		restartOption.style.display = "block";
 	}
 	
+	if (playerScore < 500000) {
+		restartOption.style.display = "none";
+	}
+	
 	document.getElementById("progress").style.width = width + "px";
 	document.getElementById('output').innerHTML = "Total Money: £" + (playerScore = Number(playerScore.toFixed(2)));
 	
